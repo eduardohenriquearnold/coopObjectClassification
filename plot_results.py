@@ -92,6 +92,7 @@ def exp4():
 		plt.legend(loc='lower left')
 		plt.xlabel('Occlusion size')
 		plt.ylabel('F1 score')
+		plt.axvline(x=0.3, alpha=0.1, color='red', linestyle='dashed') #Plot vertical line on the occlusion size used for training
 
 	modes = {'vot':'Voting', 'vp':'View pooling', 'conc':'Concatenation'}
 	
@@ -108,7 +109,7 @@ def exp5():
 
 		f1_cs = []
 		f1s = []
-		noiseRange = np.arange(0,0.2, 0.02)
+		noiseRange = np.arange(0,0.15, 0.01)
 		for noisePower in noiseRange:
 			path = 'results/exp5/{}/gn{:.2f}.npz'.format(mode, noisePower) 
 			result = np.load(path)
@@ -135,6 +136,7 @@ def exp5():
 		plt.xlabel('Gaussian Noise Std Dev')
 		plt.ylabel('F1 score')
 		plt.xticks(noiseRange)
+		plt.axvline(x=0.05, alpha=0.1, color='red', linestyle='dashed') #Plot vertical line on the occlusion size used for training
 
 	modes = {'vot':'Voting', 'vp':'View pooling', 'conc':'Concatenation'}
 	
@@ -146,6 +148,8 @@ def exp5():
 	plt.show()
 		
 
-cmexp(3)
+exp4()
+
+
 
 

@@ -20,7 +20,8 @@ def train(mode, modelpath, noise=False):
 	#Select optimization method and loss function
 	optParams = filter(lambda p: p.requires_grad, mvcnn.parameters())#Get parameters that need optimization (are not frozen)
 	opt = torch.optim.SGD(optParams, lr=1e-3, momentum=0.9)
-	lossF = torch.nn.CrossEntropyLoss()
+	weights = torch.from_numpy(1/modelnetDataset.histogram()).type(torch.FloatTensor).cuda()
+	lossF = torch.nn.CrossEntropyLoss(weight=weights)
 
 	#Start training process
 	for e in range(epochs):
@@ -30,7 +31,7 @@ def train(mode, modelpath, noise=False):
 			x, y = data
 			
 			if noise:
-				n = torch.zeros((x.size()[3],x.size()[4])).normal_(0, 0.1) #same noise mask to all views of the same object
+				n = torch.zeros((x.size()[3],x.size()[4])).normal_(0, 0.05) #same noise mask to all views of the same object
 				x += n
 				x.clamp_(0,1)
 						

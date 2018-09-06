@@ -15,8 +15,8 @@ modelnetDataset = dataset.ModelnetMV('data', train=False)
 loader = torch.utils.data.DataLoader(modelnetDataset, batch_size=batch_size, shuffle=True, num_workers=4)
 
 #Create model
-mvcnn = model.MVCNN(mode='vp').cuda()
-mvcnn.load_state_dict(torch.load('models/mvcnn_vp.pt'))
+mvcnn = model.MVCNN(mode='vp', numClasses=len(modelnetDataset.classes)).cuda()
+mvcnn.load_state_dict(torch.load('models/vp.pt'))
 mvcnn.eval()
 
 #Evaluate

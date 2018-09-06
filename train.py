@@ -12,13 +12,18 @@ modelnetDataset = dataset.ModelnetMV('data', train=True)
 loader = torch.utils.data.DataLoader(modelnetDataset, batch_size=batch_size, shuffle=True, num_workers=4)
 
 #Create model
-mvcnn = model.MVCNN(mode='vp').cuda()
+mvcnn = model.MVCNN(mode='vp', numClasses=len(modelnetDataset.classes)).cuda()
 mvcnn.train()
+
+#Set last conv before maxpooling to be optimized
+for param in mvcnn.cnn1[18].parameters():
+	param.requires_grad = True
 
 #Select optimization method and loss function
 optParams = filter(lambda p: p.requires_grad, mvcnn.parameters())#Get parameters that need optimization (are not frozen)
-opt = torch.optim.SGD(optParams, lr=1e-2, momentum=0.9)
-lossF = torch.nn.CrossEntropyLoss()
+opt = torch.optim.SGD(optParams, lr=1e-3, momentum=0.9)
+weights = torch.from_numpy(1/modelnetDataset.histogram()).type(torch.FloatTensor).cuda()
+lossF = torch.nn.CrossEntropyLoss(weight=weights)
 
 #Start training process
 for e in range(epochs):

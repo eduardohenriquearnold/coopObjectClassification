@@ -5,11 +5,10 @@ import dataset
 
 def getHist(train=True):
 	d = dataset.ModelnetMV('data', train=train)
+
+	hist = d.histogram()	
 	nclasses = len(d.classes)
 	classes = d.classes
-	targets = [s[1] for s in d.samples]
-
-	hist, _ = np.histogram(targets, bins=nclasses)
 
 	width=0.3
 	bins = list(map(lambda x: x-width/2,range(1,nclasses+1)))

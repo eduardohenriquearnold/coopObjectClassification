@@ -23,7 +23,7 @@ Experiments Description
 =========================
 
 1. Train and test on impairment free data
-2. Train on impairment free, evaluate with fixed occlusion size 0.2
-3. Train on impairment free, evaluate with fixed occlusion 0.2 and additive gaussian noise sigma 0.1
+2. Train on impairment free, evaluate with fixed occlusion size 0.3
+3. Train on impairment free, evaluate with fixed occlusion 0.3 and additive gaussian noise sigma 0.05
 4. Train on impaired data, evaluate on different occlusion sizes
 5. Train on impaired data, evaluate on different gaussian noise powers

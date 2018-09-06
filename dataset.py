@@ -34,3 +34,9 @@ class ModelnetMV(torchvision.datasets.DatasetFolder):
 
 		imgs = torch.cat(imgs, 0)
 		return imgs
+		
+	def histogram(self):
+		targets = [s[1] for s in self.samples]
+		hist, _ = np.histogram(targets, bins=len(self.classes))
+		return hist
+

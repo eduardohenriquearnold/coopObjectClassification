@@ -87,7 +87,7 @@ def exp3():
 	descriptions = ['SV, view 0', 'SV, view 1', 'SV, view 2', 'MV, voting', 'MV, view-pooling', 'MV, concatenation']
 	
 	for mode, modelPath, resultPath, desc in zip(modes, modelPaths, resultPaths, descriptions):
-		test(mode, modelPath, resultPath, desc, noisePower=0.1)
+		test(mode, modelPath, resultPath, desc, noisePower=0.05)
 		gc.collect()
 		
 def exp4():
@@ -95,20 +95,19 @@ def exp4():
 	modelPaths = ['models/imp/{}.pt'.format(mode) for mode in modes]
 	descriptions = ['MV voting', 'MV view-pooling', 'MV concatenation']
 	
-	occSizes = np.arange(0, 0.5, 0.05)
+	occSizes = np.arange(0, 0.50, 0.05)
 	for occSize in occSizes:
 		#Generate test dataset
-		subprocess.call(['render_scripts/generate.sh', 'data/test/', str(occSize)], env={})
+		subprocess.call(['data/generate.sh', 'data/test/', str(occSize)], env={})
 		
-		#Copy a few files for sanity
-		for i in range(3):
-			subprocess.call(['cp', 'data/test/car/car_0198-{}.png'.format(i), 'samples/car-{}-{}'.format(occSize,i)])
+		#Save sample image for diagnostics
+		subprocess.call(['cp', 'data/test/car/1a1dcd236a1e6133860800e6696b8284-2.png', 'samples/1a1dcd236a1e6133860800e6696b8284-{}.png'.format(occSize)])
 			
 		#Generate test results for each mode
 		for mode, modelPath, desc in zip(modes, modelPaths, descriptions):
 			resultPath = 'results/exp4/{}/occ{:.2f}.npz'.format(mode, occSize)
 			test(mode, modelPath, resultPath, desc)
-			torch.cuda.empty_cache()
+			gc.collect()
 			
 def exp5():
 	'''Same as 4, but without occlusion, and adding WGN'''
@@ -117,14 +116,12 @@ def exp5():
 	modelPaths = ['models/imp/{}.pt'.format(mode) for mode in modes]
 	descriptions = ['MV voting', 'MV view-pooling', 'MV concatenation']
 	
-	noisePowers = np.arange(0.14, 0.2, 0.02)
+	noisePowers = np.arange(0, 0.15, 0.01)
 	for noisePower in noisePowers:
 		#Generate test results for each mode
 		for mode, modelPath, desc in zip(modes, modelPaths, descriptions):
 			resultPath = 'results/exp5/{}/gn{:.2f}.npz'.format(mode, noisePower)
 			test(mode, modelPath, resultPath, desc, noisePower=noisePower)
-			torch.cuda.empty_cache()
+			gc.collect()
 
-exp2()
-exp3()
-
+exp5()
