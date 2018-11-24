@@ -124,4 +124,5 @@ def exp5():
 			test(mode, modelPath, resultPath, desc, noisePower=noisePower)
 			gc.collect()
 
-exp5()
+exp2()
+exp3()

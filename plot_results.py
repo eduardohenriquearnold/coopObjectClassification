@@ -25,11 +25,11 @@ def plot_confusion_matrix(cm, classes,
     print(cm)
 
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title)
+    plt.title(title, fontsize=18)
     plt.colorbar()
     tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=30)
-    plt.yticks(tick_marks, classes)
+    plt.xticks(tick_marks, classes, rotation=30, fontsize=12)
+    plt.yticks(tick_marks, classes, fontsize=12)
 
     fmt = '.2f' if normalize else 'd'
     thresh = cm.max() / 2.
@@ -39,8 +39,8 @@ def plot_confusion_matrix(cm, classes,
                  color="white" if cm[i, j] > thresh else "black")
 
     #plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
+    plt.ylabel('True label', fontsize=14)
+    plt.xlabel('Predicted label', fontsize=14)
     	
 def cmexp(n):
 	resultPaths = ['results/exp{}/{}.npz'.format(n, f) for f in ('sv0', 'sv1', 'sv2', 'vot', 'vp', 'conc')]
@@ -52,9 +52,9 @@ def cmexp(n):
 		f1 = result['f1']
 		
 		plt.subplot(2, 3, i)
-		plot_confusion_matrix(cm, classes=modelnetDataset.classes, normalize=True, title='Confusion matrix, {}\nF1={:.3f}'.format(desc, f1))
+		plot_confusion_matrix(cm, classes=modelnetDataset.classes, normalize=True, title='{}\nF1={:.3f}'.format(desc, f1))
 
-	plt.subplots_adjust(hspace = 0.48)
+	plt.subplots_adjust(top=0.925, bottom=0.09, left=0.03, right=0.99, hspace=0.54, wspace=0.2)
 	plt.show()
 	
 
@@ -148,6 +148,7 @@ def exp5():
 	plt.show()
 		
 
+#cmexp(3)
 exp4()
 
 

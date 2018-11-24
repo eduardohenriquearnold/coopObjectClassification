@@ -12,11 +12,11 @@ def setOcclusion(size):
 	'''Set occlusion model with corresponding size and position'''
 	obj = bpy.data.objects['Occlusion']
 	obj.dimensions = 3*[size]
-	
+
 	#Set random position
 	r = 0.6
-	ang = random.uniform(-math.pi, math.pi)
-	obj.location = [r*math.cos(ang), r*math.sin(ang), 0]	
+	ang = random.uniform(-math.pi/2, math.pi/2)
+	obj.location = [r*math.cos(ang), r*math.sin(ang), 0]
 
 def importModel(fpath):
 	'''Import OBJ model (from fpath) into Blender. Set origin, position and uniformely resize'''
@@ -47,10 +47,10 @@ def generateView(fpath):
 
 	#Import model
 	obj = importModel(fpath)
-	
+
 	#Incorporate occlusion model
 	setOcclusion(globals()['occSize'])
-	
+
 	#Generate views
 	for i, cam in enumerate(cameras):
 		bpy.context.scene.camera = cam
@@ -58,16 +58,16 @@ def generateView(fpath):
 
 	#Delete model
 	bpy.data.objects.remove(obj, True)
-	
+
 	#Purge unused data
 	for block in bpy.data.meshes:
 		if block.users == 0:
 			bpy.data.meshes.remove(block)
-			
+
 	for block in bpy.data.scenes:
 		if block.users == 0:
 			bpy.data.scenes.remove(block)
-					
+
 
 def processDir(modelDir):
 	modelPaths = [modelDir+f for f in os.listdir(modelDir) if f.endswith('.obj')]
@@ -87,5 +87,3 @@ argv = argv[argv.index("--") + 1:]  # get all args after "--"
 modelDir = argv[0]
 occSize = float(argv[1])
 processDirRecursively(modelDir)
-
-

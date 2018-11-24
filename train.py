@@ -49,5 +49,5 @@ for e in range(epochs):
 		if b%10 == 0:
 			print("Epoch {:3d}. Batch {:3d}/{:<3d}. Running loss {:8.6f}".format(e, b, len(loader), rloss/10))
 			rloss = 0
-		
+
 torch.save(mvcnn.state_dict(), 'models/vp.pt')

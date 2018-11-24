@@ -29,14 +29,14 @@ def train(mode, modelpath, noise=False):
 		for b, data in enumerate(loader):
 			#Get data
 			x, y = data
-			
+
 			if noise:
 				n = torch.zeros((x.size()[3],x.size()[4])).normal_(0, 0.05) #same noise mask to all views of the same object
 				x += n
 				x.clamp_(0,1)
-						
+
 			x = x.cuda()
-			y = y.cuda()		
+			y = y.cuda()
 
 			#Zero grad
 			opt.zero_grad()
@@ -53,20 +53,20 @@ def train(mode, modelpath, noise=False):
 			if b%10 == 0:
 				print("Epoch {:3d}. Batch {:3d}/{:<3d}. Running loss {:8.6f}".format(e, b, len(loader), rloss/10))
 				rloss = 0
-			
+
 	torch.save(mvcnn.state_dict(), modelpath)
-	
+
 def train_all(impairment=False):
 	'''Train models with impairments or not. (Occlusion must be generated on the dataset with the generate.sh script)'''
 	imp = 'imp' if impairment else 'impfree'
-	modes = ['sv0', 'sv1', 'sv2', 'vot', 'vp', 'conc']
-	modelPaths = ['models/{}/{}.pt'.format(imp, mode) for mode in modes]	
-	
+	modes = ['vot', 'vp', 'conc'] if impairment else ['sv0', 'sv1', 'sv2', 'vot', 'vp', 'conc']
+	modelPaths = ['models/{}/{}.pt'.format(imp, mode) for mode in modes]
+
 	for mode, modelPath in zip(modes, modelPaths):
 		print('Training {}'.format(mode))
 		train(mode, modelPath, noise=impairment)
 		gc.collect() #Garbage collector (avoid GPU running out of memory)
-		
-	
-		
-train_all(impairment=True)
+
+
+
+train_all(impairment=False)
