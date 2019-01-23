@@ -25,7 +25,7 @@ class MVCNN(nn.Module):
 			param.requires_grad = False
 
 		#Set forward function
-		if mode == 'vp':
+		if mode[0:2] == 'vp':
 			self.forward = self.forward_viewpooling
 		elif mode == 'vot':
 			self.forward = self.forward_voting

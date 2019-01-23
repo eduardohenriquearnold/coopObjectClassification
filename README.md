@@ -27,3 +27,4 @@ Experiments Description
 3. Train on impairment free, evaluate with fixed occlusion 0.3 and additive gaussian noise sigma 0.05
 4. Train on impaired data, evaluate on different occlusion sizes
 5. Train on impaired data, evaluate on different gaussian noise powers
+6. Train on impaired data, evaluate with same occlusion level (0.3) but with random object orientation

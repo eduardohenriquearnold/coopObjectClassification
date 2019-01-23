@@ -11,12 +11,12 @@ import model
 
 #Load dataset
 batch_size = 8
-modelnetDataset = dataset.ModelnetMV('data', train=False)
+modelnetDataset = dataset.ModelnetMV('data/test_0.30_rot')
 loader = torch.utils.data.DataLoader(modelnetDataset, batch_size=batch_size, shuffle=True, num_workers=4)
 
 #Create model
 mvcnn = model.MVCNN(mode='vp', numClasses=len(modelnetDataset.classes)).cuda()
-mvcnn.load_state_dict(torch.load('models/vp.pt'))
+mvcnn.load_state_dict(torch.load('models/imp/vp_rloss.pt'))
 mvcnn.eval()
 
 #Evaluate
@@ -84,4 +84,3 @@ f1 = f1_score(ys, yps, average='weighted')
 cm = confusion_matrix(ys, yps)
 plot_confusion_matrix(cm, classes=modelnetDataset.classes, normalize=True, title='Confusion matrix, VP\nF1={:.3f}'.format(f1))
 plt.show()
-
