@@ -1,12 +1,16 @@
+import matplotlib
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 import dataset
 
-def getHist(train=True):
-	d = dataset.ModelnetMV('data', train=train)
+def getHist(folder, train=True):
+	d = dataset.ModelnetMV(folder)
 
-	hist = d.histogram()	
+	hist = d.histogram()
 	nclasses = len(d.classes)
 	classes = d.classes
 
@@ -20,8 +24,7 @@ def getHist(train=True):
 	ax.set_xticklabels(classes,rotation=45)
 	ax.set_title("Classes histogram")
 	plt.legend(loc='upper right')
-	
-getHist(True)
-getHist(False)	
-plt.show()
 
+getHist('data/train_0', True)
+getHist('data/test_0.00', False)
+plt.show()
