@@ -1,11 +1,24 @@
-# MonoMultiView
+# Cooperative Object Classification for Driving applications 
 
 This project aims at evaluating cooperative approaches towards object classification on monocular images. It uses 3D models to render objects at different viewpoints.
+The results obtained with these experiments were published [here](https://ieeexplore.ieee.org/abstract/document/8813811).
+Please cite using
+```
+@INPROCEEDINGS{8813811,
+  author={E. {Arnold} and O. Y. {Al-Jarrah} and M. {Dianati} and S. {Fallah} and D. {Oxtoby} and A. {Mouzakitis}},
+  booktitle={2019 IEEE Intelligent Vehicles Symposium (IV)}, 
+  title={Cooperative Object Classification for Driving Applications}, 
+  year={2019},
+  volume={},
+  number={},
+  pages={2484-2489}
+}
+```
 
 Dataset
 ==========
 
-Dataset is generated from 3D models with the Blender render engine. The folder **render_scripts** has scripts to generate the dataset, which will reside in the **data** folder.
+Dataset is generated from 3D models of the Shapenet dataset with the Blender render engine. The folder **render_scripts** has scripts to generate the dataset, which will reside in the **data** folder.
 
 Models
 ========
