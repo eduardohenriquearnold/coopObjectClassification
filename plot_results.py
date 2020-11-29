@@ -63,8 +63,6 @@ def cmexp(n):
     plt.show()
 
 
-
-
 def exp4():
 
     def exp4_ind(mode, desc, ax):
@@ -152,6 +150,20 @@ def exp5():
 
     plt.show()
 
+def exp1():
+    cmexp(1)
 
-#cmexp(3)
-exp4()
+def exp2():
+    cmexp(2)
+
+def exp3():
+    cmexp(3)
+
+if __name__ == '__main__':
+    'argument should be expX, where X is 1,2,..,6'
+    f = sys.argv[1]
+    if f not in [f'exp{i}' for i in range(1,7)]:
+        print('Invalid Experiment!')
+    else:
+        f = eval(f)
+        f()

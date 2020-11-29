@@ -1,7 +1,9 @@
-# Cooperative Object Classification for Driving applications 
+# Cooperative Object Classification for Driving Applications 
+![render-pipeline](render.png)
 
-This project aims at evaluating cooperative approaches towards object classification on monocular images. It uses 3D models to render objects at different viewpoints.
-The results obtained with these experiments were published [here](https://ieeexplore.ieee.org/abstract/document/8813811).
+This project aims at evaluating cooperative approaches towards object classification on monocular images. It renders 3D meshes into images from three different viewpoints and evaluate the impact of occlusion and sensor noise into the classification result.
+Ten object classes of interest for a Driving application are considered: animal, bike, trash can (bin), bus, car, mailbox, motorbike, person and truck.
+The paper containing the results of this research activity was published [here](https://ieeexplore.ieee.org/abstract/document/8813811).
 Please cite using
 ```
 @INPROCEEDINGS{8813811,
@@ -14,26 +16,44 @@ Please cite using
   pages={2484-2489}
 }
 ```
+## :gear: Environment Setup
+We used PyTorch 1.0.1 with CUDA toolkit 8.0. You can set up and activate the exact conda environenment using:
+```
+conda env create -f environment.yml -n coopclassification 
+conda activate coopclassification
+```
 
-Dataset
-==========
+## :camera: Downloading the Dataset
+The dataset is generated from a subsample of textureless 3D meshes provided in the Shapenet dataset for the classes of interest. The images are created with the Blender render engine. 
+The folders are separated in training and testing. For testing, we render occlusion boxes around the objects to investigate the impact of occlusion.
+We vary the size of the occluding box as a percentage of the size of the object, resulting in multiple test folders, each labeled as `test_OCC` where `OCC` is the percentage of the occlusion size relative to the objects size.
+For simplicity we provide the rendered dataset in a compressed file [here](https://drive.google.com/file/d/1t5U2PaM5G9e04KEJ_-0pSgIHSAgfaXRg/view?usp=sharing).
+Download it and extract within the `data` folder.
 
-Dataset is generated from 3D models of the Shapenet dataset with the Blender render engine. The folder **render_scripts** has scripts to generate the dataset, which will reside in the **data** folder.
+The dataset class distribution can be observed using `python dataset_histogram.py`.
 
-Models
-========
+## :books: Training
+To train the models for each experiment use
+```
+python train.py
+```
+The trained models will be stored within the folder `models`, one for each fusion scheme (voting, view-pooling and concatenation) as well for models for individual view (single-view 0, single-view 1, single-view 2).
 
-All models are stored in the **models** folder. Models on the main model folder were trained on impairment free data, whilst the ones residing in **impairments** were trained with occlusion and additive gaussian noise.
+## :chart: Evaluation
+The models can be evaluated for experiment number `X` using 
+```
+python test.py expX
+```
+Each experiment is described in the next section.
+This will create evaluation files for each experiment in the results folder `results/expX`
 
+After the evaluation script is run, the results can be visualised using 
+```
+python plot_results.py expX
+```
 
-Scripts
-==========
-
-train.py and test.py are used to individually train models of specific configurations. In order to train and evaluate multiple models in a batch use train_extended.py and test_extended.py. Note that test_extended.py will generate raw results, including predicted probabilities, confusion matrix and F1 scores, on npy format to the **results** folder. This data can be used to evaluate different metrics without having to re-evaluate the dataset. Please note that the results in that folder are specific to a experiment.
-
-
-Experiments Description
-=========================
+## :clipboard: Experiments Description
+The training and testing functions are labeled according to the experiment conducted. A description of each experiment is listed below:
 
 1. Train and test on impairment free data
 2. Train on impairment free, evaluate with fixed occlusion size 0.3
