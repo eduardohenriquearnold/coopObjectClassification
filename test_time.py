@@ -56,5 +56,3 @@ etime = np.array(ts[0:-1])
 etime = len(etime)*etime.mean()
 print('Model contains {} parameters'.format(count_parameters(mvcnn)))
 print('Classified {} samples in {:.02e}s'.format(ys.shape[0], etime))
-
-

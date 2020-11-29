@@ -2,7 +2,8 @@
 ![render-pipeline](render.png)
 
 This project aims at evaluating cooperative approaches towards object classification on monocular images. It renders 3D meshes into images from three different viewpoints and evaluate the impact of occlusion and sensor noise into the classification result.
-Ten object classes of interest for a Driving application are considered: animal, bike, trash can (bin), bus, car, mailbox, motorbike, person and truck.
+Ten object classes of interest for driving applications are considered: animal, bike, trash can (bin), bus, car, mailbox, motorbike, person and truck.
+
 The paper containing the results of this research activity was published [here](https://ieeexplore.ieee.org/abstract/document/8813811).
 Please cite using
 ```
@@ -50,6 +51,11 @@ This will create evaluation files for each experiment in the results folder `res
 After the evaluation script is run, the results can be visualised using 
 ```
 python plot_results.py expX
+```
+
+To evaluate the execution time of our models use
+```
+python test_time.py
 ```
 
 ## :clipboard: Experiments Description
