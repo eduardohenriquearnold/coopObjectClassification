@@ -4,6 +4,11 @@
 This project aims at evaluating cooperative approaches towards object classification on monocular images. It renders 3D meshes into images from three different viewpoints and evaluate the impact of occlusion and sensor noise into the classification result.
 Ten object classes of interest for driving applications are considered: animal, bike, trash can (bin), bus, car, mailbox, motorbike, person and truck.
 
+We use a pre-trained VGG-19 as the CNN backbone shared across views and devise different strategies to fuse the features from each view.
+We evaluate different fusion architectures: (a) voting, (b) view-pooling, (c) concatenation (proposed). These architectures are illustrated below:
+![model-architectures](models.png)
+
+
 The paper containing the results of this research activity was published [here](https://ieeexplore.ieee.org/abstract/document/8813811).
 Please cite using
 ```
