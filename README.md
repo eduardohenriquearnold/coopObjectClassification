@@ -1,4 +1,6 @@
 # Cooperative Object Classification for Driving Applications 
+[Paper](https://ieeexplore.ieee.org/abstract/document/8813811) | [Preprint](https://wrap.warwick.ac.uk/157113/1/WRAP-Cooperative-object-classification-driving-applications-2021.pdf) | [Dataset](https://wrap.warwick.ac.uk/160228/)
+
 ![render-pipeline](render.png)
 
 This project aims at evaluating cooperative approaches towards object classification on monocular images. It renders 3D meshes into images from three different viewpoints and evaluate the impact of occlusion and sensor noise into the classification result.
@@ -33,8 +35,8 @@ conda activate coopclassification
 The dataset is generated from a subsample of textureless 3D meshes provided in the Shapenet dataset for the classes of interest. The images are created with the Blender render engine. 
 The folders are separated in training and testing. For testing, we render occlusion boxes around the objects to investigate the impact of occlusion.
 We vary the size of the occluding box as a percentage of the size of the object, resulting in multiple test folders, each labeled as `test_OCC` where `OCC` is the percentage of the occlusion size relative to the objects size.
-For simplicity we provide the rendered dataset in a compressed file [here](https://drive.google.com/file/d/1t5U2PaM5G9e04KEJ_-0pSgIHSAgfaXRg/view?usp=sharing).
-Download it and extract within the `data` folder.
+For simplicity we provide the rendered dataset in a compressed file [here](https://wrap.warwick.ac.uk/160228/1/coopclassificationdataset.zip).
+Download and extract it within the `data` folder.
 
 The dataset class distribution can be observed using `python dataset_histogram.py`.
 
